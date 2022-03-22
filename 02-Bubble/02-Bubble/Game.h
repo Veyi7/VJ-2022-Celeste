@@ -3,6 +3,7 @@
 
 
 #include "Scene.h"
+#include "Menu.h"
 
 
 #define SCREEN_WIDTH 640
@@ -30,6 +31,8 @@ public:
 	bool update(int deltaTime);
 	void render();
 	
+	enum State {MENU, GAME};
+
 	// Input callback methods
 	void keyPressed(int key);
 	void keyReleased(int key);
@@ -44,9 +47,11 @@ public:
 
 private:
 	bool bPlay;                       // Continue to play game?
+	Menu menu;                        // Main menu to render
 	Scene scene;                      // Scene to render
 	bool keys[256], specialKeys[256]; // Store key states so that 
 	                                  // we can have access at any time
+	State state;
 
 };
 
