@@ -2,8 +2,4 @@
 # Este archivo .gitignore ha sido creado automáticamente por Microsoft(R) Visual Studio.
 ################################################################################
 
-/02-Bubble/.vs
-/02-Bubble/Debug/02-Bubble.exe
-/02-Bubble/Debug/02-Bubble.pdb
-/02-Bubble/02-Bubble/Debug
-/.vs
+/02-Bubble/.vs/02-Bubble/v17/Browse.VC.opendb
