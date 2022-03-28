@@ -1,11 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\02-Bubble",
     "\\02-Bubble\\02-Bubble",
-    "\\02-Bubble\\02-Bubble\\images",
-    "\\02-Bubble\\02-Bubble\\levels"
+    "\\02-Bubble\\Debug"
   ],
-  "SelectedNode": "\\02-Bubble\\02-Bubble.sln",
+  "SelectedNode": "\\.gitignore",
   "PreviewInSolutionExplorer": false
 }
