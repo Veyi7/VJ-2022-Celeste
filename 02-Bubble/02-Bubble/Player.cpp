@@ -56,7 +56,11 @@ void Player::update(int deltaTime)
 		if(sprite->animation() != MOVE_LEFT)
 			sprite->changeAnimation(MOVE_LEFT);
 		posPlayer.x -= 2;
-		if(map->collisionMoveLeft(posPlayer, PLAYER_QUAD_SIZE))
+		if (map->collisionSpike(posPlayer, PLAYER_QUAD_SIZE))
+		{
+			spawn();
+		}
+		else if (map->collisionMoveLeft(posPlayer, PLAYER_QUAD_SIZE))
 		{
 			posPlayer.x += 2;
 			sprite->changeAnimation(STAND_LEFT);
@@ -67,7 +71,11 @@ void Player::update(int deltaTime)
 		if(sprite->animation() != MOVE_RIGHT)
 			sprite->changeAnimation(MOVE_RIGHT);
 		posPlayer.x += 2;
-		if(map->collisionMoveRight(posPlayer, PLAYER_QUAD_SIZE))
+		if (map->collisionSpike(posPlayer, PLAYER_QUAD_SIZE))
+		{
+			spawn();
+		}
+		else if(map->collisionMoveRight(posPlayer, PLAYER_QUAD_SIZE))
 		{
 			posPlayer.x -= 2;
 			sprite->changeAnimation(STAND_RIGHT);
@@ -92,14 +100,22 @@ void Player::update(int deltaTime)
 		else
 		{
 			posPlayer.y = int(startY - 96 * sin(3.14159f * jumpAngle / 180.f));
-			if(jumpAngle > 90)
+			if (map->collisionSpike(posPlayer, PLAYER_QUAD_SIZE))
+			{
+				spawn();
+			}
+			else if(jumpAngle > 90)
 				bJumping = !map->collisionMoveDown(posPlayer, PLAYER_QUAD_SIZE, &posPlayer.y);
 		}
 	}
 	else
 	{
 		posPlayer.y += FALL_STEP;
-		if(map->collisionMoveDown(posPlayer, PLAYER_QUAD_SIZE, &posPlayer.y))
+		if (map->collisionSpike(posPlayer, PLAYER_QUAD_SIZE))
+		{
+			spawn();
+		}
+		else if(map->collisionMoveDown(posPlayer, PLAYER_QUAD_SIZE, &posPlayer.y))
 		{
 			if(Game::instance().getSpecialKey(GLUT_KEY_UP))
 			{
@@ -118,7 +134,14 @@ void Player::render()
 	sprite->render();
 }
 
-void Player::setTileMap(TileMap *tileMap)
+void Player::spawn()
+{
+	bJumping = false;
+	setPosition(glm::vec2(map->getPlayerInitTile().x * map->getTileSize(), map->getPlayerInitTile().y * map->getTileSize()));
+	sprite->changeAnimation(STAND_RIGHT);
+}
+
+void Player::setTileMap(TileMap* tileMap)
 {
 	map = tileMap;
 }

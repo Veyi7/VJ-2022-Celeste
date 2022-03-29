@@ -19,8 +19,12 @@ public:
 	void render();
 	
 	void setTileMap(TileMap *tileMap);
-	void setPosition(const glm::vec2 &pos);
-	
+
+	void spawn();
+
+private:
+	void setPosition(const glm::vec2& pos);
+
 private:
 	bool bJumping;
 	glm::ivec2 tileMapDispl, posPlayer;
