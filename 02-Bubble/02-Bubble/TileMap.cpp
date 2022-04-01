@@ -239,8 +239,12 @@ bool TileMap::collisionMoveDown(const glm::ivec2& pos, const glm::ivec2& size, i
 	return false;
 }
 
-bool TileMap::collisionSpike(const glm::ivec2& pos, const glm::ivec2& size) const
+bool TileMap::collisionSpike(const glm::ivec2& pos, const glm::ivec2& size, const bool& bG) const
 {
+	// Cheat: (G)od mode
+	if (bG) return false;
+
+
 	int x0, x1, y0, y1;
 
 	x0 = pos.x / tileSize;

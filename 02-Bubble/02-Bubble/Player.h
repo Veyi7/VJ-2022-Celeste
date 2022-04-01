@@ -27,6 +27,7 @@ private:
 
 private:
 	bool bJumping;
+	bool bG; // Cheats: (G)od mode
 	glm::ivec2 tileMapDispl, posPlayer;
 	int jumpAngle, startY;
 	Texture spritesheet;

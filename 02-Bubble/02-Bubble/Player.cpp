@@ -21,6 +21,7 @@ enum PlayerAnims
 
 void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 {
+	bG = false;
 	bJumping = false;
 	spritesheet.loadFromFile("images/bub.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	sprite = Sprite::createSprite(PLAYER_QUAD_SIZE, glm::vec2(0.25, 0.25), &spritesheet, &shaderProgram);
@@ -50,13 +51,19 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 
 void Player::update(int deltaTime)
 {
+	// Cheats
+	if (Game::instance().getKey('g')) {
+		bG = (!bG); // Toggle (G)od mode
+	}
+
+
 	sprite->update(deltaTime);
 	if(Game::instance().getSpecialKey(GLUT_KEY_LEFT))
 	{
 		if(sprite->animation() != MOVE_LEFT)
 			sprite->changeAnimation(MOVE_LEFT);
 		posPlayer.x -= 2;
-		if (map->collisionSpike(posPlayer, PLAYER_QUAD_SIZE))
+		if (map->collisionSpike(posPlayer, PLAYER_QUAD_SIZE, bG))
 		{
 			spawn();
 		}
@@ -71,7 +78,7 @@ void Player::update(int deltaTime)
 		if(sprite->animation() != MOVE_RIGHT)
 			sprite->changeAnimation(MOVE_RIGHT);
 		posPlayer.x += 2;
-		if (map->collisionSpike(posPlayer, PLAYER_QUAD_SIZE))
+		if (map->collisionSpike(posPlayer, PLAYER_QUAD_SIZE, bG))
 		{
 			spawn();
 		}
@@ -100,7 +107,7 @@ void Player::update(int deltaTime)
 		else
 		{
 			posPlayer.y = int(startY - 96 * sin(3.14159f * jumpAngle / 180.f));
-			if (map->collisionSpike(posPlayer, PLAYER_QUAD_SIZE))
+			if (map->collisionSpike(posPlayer, PLAYER_QUAD_SIZE, bG))
 			{
 				spawn();
 			}
@@ -114,7 +121,7 @@ void Player::update(int deltaTime)
 	else
 	{
 		posPlayer.y += FALL_STEP;
-		if (map->collisionSpike(posPlayer, PLAYER_QUAD_SIZE))
+		if (map->collisionSpike(posPlayer, PLAYER_QUAD_SIZE, bG))
 		{
 			spawn();
 		}
