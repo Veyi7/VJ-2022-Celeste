@@ -18,6 +18,7 @@ TileMap *TileMap::createTileMap(const string &levelFile, const glm::vec2 &minCoo
 
 TileMap::TileMap(const string &levelFile, const glm::vec2 &minCoords, ShaderProgram &program)
 {
+	bLevelWin = false;
 	loadLevel(levelFile);
 	prepareArrays(minCoords, program);
 }
@@ -185,7 +186,7 @@ bool TileMap::collisionMoveRight(const glm::ivec2& pos, const glm::ivec2& size) 
 	return false;
 }
 
-bool TileMap::collisionMoveUp(const glm::ivec2& pos, const glm::ivec2& size, int *posY) const
+bool TileMap::collisionMoveUp(const glm::ivec2& pos, const glm::ivec2& size, int *posY)
 {
 	int x0, x1, y;
 
@@ -194,6 +195,7 @@ bool TileMap::collisionMoveUp(const glm::ivec2& pos, const glm::ivec2& size, int
 	y = pos.y / tileSize;
 	if (pos.y < 0) {
 		*posY = 0;
+		bLevelWin = true;
 		return true;
 	}
 	for (int x = x0; x <= x1; x++)
@@ -257,6 +259,11 @@ bool TileMap::collisionSpike(const glm::ivec2& pos, const glm::ivec2& size) cons
 	}
 
 	return false;
+}
+
+bool TileMap::levelWin()
+{
+	return bLevelWin;
 }
 
 

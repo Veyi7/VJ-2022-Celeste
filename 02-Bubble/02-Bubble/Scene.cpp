@@ -30,7 +30,8 @@ Scene::~Scene()
 void Scene::init()
 {
 	initShaders();
-	map = TileMap::createTileMap("levels/1.txt", glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
+	level = 0;
+	map = TileMap::createTileMap(levelFilename[level], glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
 	player = new Player();
 	player->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
 	player->setTileMap(map);
@@ -43,6 +44,14 @@ void Scene::update(int deltaTime)
 {
 	currentTime += deltaTime;
 	player->update(deltaTime);
+
+	if (map->levelWin()) {
+		delete map;
+		level++;
+		map = TileMap::createTileMap(levelFilename[level], glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
+		player->setTileMap(map);
+		player->spawn();
+	}
 }
 
 void Scene::render()

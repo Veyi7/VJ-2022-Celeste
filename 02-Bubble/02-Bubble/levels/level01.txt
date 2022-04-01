@@ -1,7 +1,8 @@
 TILEMAP
 16 16 							-- Size of tile map in tiles
-16 16							-- Tile size & block size
-images/MapaB.png 	-- Tilesheet
+24 24							-- Tile size & block size
+3 4			-- Player initial tile
+images/MapaC.png 	-- Tilesheet
 8 6 								-- Number of tiles in tilesheet
 1111111111111111
 123456789ABCDEF1
