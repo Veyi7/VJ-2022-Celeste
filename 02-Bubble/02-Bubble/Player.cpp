@@ -104,7 +104,10 @@ void Player::update(int deltaTime)
 			{
 				spawn();
 			}
-			else if(jumpAngle > 90)
+			else if (jumpAngle <= 90) {
+				bJumping = !map->collisionMoveUp(posPlayer, PLAYER_QUAD_SIZE, &posPlayer.y);
+			}
+			else if (jumpAngle > 90)
 				bJumping = !map->collisionMoveDown(posPlayer, PLAYER_QUAD_SIZE, &posPlayer.y);
 		}
 	}
